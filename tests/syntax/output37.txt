@@ -1,0 +1,1 @@
+test37.c:4:2 error: expected unqualified-id before ‘’

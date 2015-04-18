@@ -1,0 +1,1 @@
+test30.c:3:2 error: expected unqualified-id before ‘’

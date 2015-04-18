@@ -1,0 +1,19 @@
+type int
+type char
+type double
+int i
+int main
+  if
+       i
+      /
+    ==
+      \
+       3
+    {
+    int b
+    arr a
+    }
+    {
+    char b
+    double c
+    }

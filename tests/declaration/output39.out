@@ -1,0 +1,5 @@
+type int
+type char
+type double
+int a<- int
+int main

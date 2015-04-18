@@ -1,0 +1,484 @@
+////////////////////////////////
+ ////////////TEST1///////////
+
+int a;
+int main(){}
+
+type int
+type char
+type double
+int a
+int main
+////////////////////////////////
+ ////////////TEST2///////////
+
+int a, b;
+int main(){}
+
+
+type int
+type char
+type double
+int a
+int b
+int main
+////////////////////////////////
+ ////////////TEST3///////////
+
+int a, *b;
+int main(){}
+
+
+type int
+type char
+type double
+int a
+type int*
+int* b
+int main
+////////////////////////////////
+ ////////////TEST4///////////
+
+int i;
+double d;
+char c;
+int main(){}
+
+
+type int
+type char
+type double
+int i
+double d
+char c
+int main
+////////////////////////////////
+ ////////////TEST5///////////
+
+int a, *b, **c, ***d, ****e;
+int main(){}
+
+
+type int
+type char
+type double
+int a
+type int*
+int* b
+type int**
+int** c
+type int***
+int*** d
+type int****
+int**** e
+int main
+////////////////////////////////
+ ////////////TEST6///////////
+
+const int a;
+int main(){}
+
+
+type int
+type char
+type double
+int const a
+int main
+////////////////////////////////
+ ////////////TEST7///////////
+
+const int a, b, c;
+const double d;
+int main(){}
+
+
+type int
+type char
+type double
+int const a
+int const b
+int const c
+double const d
+int main
+////////////////////////////////
+ ////////////TEST8///////////
+
+int a[3];
+int main(){}
+
+
+type int
+type char
+type double
+arr a
+int main
+////////////////////////////////
+ ////////////TEST9///////////
+
+int k = 3;
+int main(){}
+
+
+type int
+type char
+type double
+int k
+int main
+////////////////////////////////
+ ////////////TEST10///////////
+
+int a = 3, i, z = 3;
+int main(){}
+
+
+type int
+type char
+type double
+int a
+int i
+int z
+int main
+////////////////////////////////
+ ////////////TEST11///////////
+
+const int a[3];
+int main(){}
+
+
+type int
+type char
+type double
+arr a
+int main
+////////////////////////////////
+ ////////////TEST12///////////
+
+int a[3][4][3];
+int main(){}
+
+
+type int
+type char
+type double
+arr a
+int main
+////////////////////////////////
+ ////////////TEST13///////////
+
+int a[3] = {1, 2, 3};
+int main(){}
+
+
+////////////////////////////////
+ ////////////TEST14///////////
+
+typedef int a;
+int main(){}
+
+
+type int
+type char
+type double
+type a
+int main
+////////////////////////////////
+ ////////////TEST15///////////
+
+typedef int a;
+a b;
+int main(){}
+
+
+type int
+type char
+type double
+type a
+a b
+int main
+////////////////////////////////
+ ////////////TEST16///////////
+
+typedef const int a;
+a b;
+int main(){}
+
+
+type int
+type char
+type double
+type a
+a b
+int main
+////////////////////////////////
+ ////////////TEST17///////////
+
+typedef double dou;
+dou a = 3.1;
+int main(){}
+
+
+type int
+type char
+type double
+type dou
+dou a
+int main
+////////////////////////////////
+ ////////////TEST18///////////
+
+typedef int a[3];
+a b;
+int main(){}
+
+
+////////////////////////////////
+ ////////////TEST19///////////
+
+typedef const int a[3];
+a b = {1, 2, 3};
+int main(){}
+
+
+////////////////////////////////
+ ////////////TEST20///////////
+
+int *(*(*(*(*(*a)))));
+int main(){}
+
+
+type int
+type char
+type double
+type int*
+type int**
+type int***
+type int****
+type int*****
+type int******
+int****** a
+int main
+////////////////////////////////
+ ////////////TEST21///////////
+
+int * const a;
+int main(){}
+
+
+type int
+type char
+type double
+type int*
+int* a
+int main
+////////////////////////////////
+ ////////////TEST22///////////
+
+const int * const a;
+int main(){}
+
+
+type int
+type char
+type double
+type int*
+int* const a
+int main
+////////////////////////////////
+ ////////////TEST23///////////
+
+typedef int *const * const * const a;
+int main(){}
+
+
+type int
+type char
+type double
+type int*
+type int**
+type int***
+type a
+int main
+////////////////////////////////
+ ////////////TEST24///////////
+
+typedef const int *const *const *(*const a);
+int main(){}
+
+
+type int
+type char
+type double
+type int*
+type int**
+type int***
+type int****
+type a
+int main
+////////////////////////////////
+ ////////////TEST25///////////
+
+typedef const int * const[3];
+int main(){}
+
+
+////////////////////////////////
+ ////////////TEST26///////////
+
+struct a{};
+int main(){}
+
+
+////////////////////////////////
+ ////////////TEST27///////////
+
+struct b{
+	int a;
+};
+int main(){}
+
+
+////////////////////////////////
+ ////////////TEST28///////////
+
+struct a{
+	int b;
+	double d;	
+};
+int main(){}
+
+
+////////////////////////////////
+ ////////////TEST29///////////
+
+struct a{
+	int b;
+	int* l;
+};
+struct a b;
+int main(){}
+
+
+////////////////////////////////
+ ////////////TEST30///////////
+
+struct a{
+	int a, *b;
+} b;
+int main(){}
+
+
+type int
+type char
+type double
+type struct a
+struct a b
+int main
+////////////////////////////////
+ ////////////TEST31///////////
+
+struct a{
+	struct b{
+		int a;
+	};
+	struct b l;
+};
+int main(){}
+
+
+////////////////////////////////
+ ////////////TEST32///////////
+
+typedef struct a{
+	int a;
+	int b;
+} a;
+int main(){}
+
+
+type int
+type char
+type double
+type struct a
+type a
+int main
+////////////////////////////////
+ ////////////TEST33///////////
+
+typedef struct{
+	int a;
+} b;
+int main(){}
+
+
+////////////////////////////////
+ ////////////TEST34///////////
+
+struct a{
+	int b;
+};
+
+a b[32];
+int main(){}
+
+
+////////////////////////////////
+ ////////////TEST35///////////
+
+struct a;
+
+struct a{
+	int b;
+	double* g;
+};
+
+int main(){}
+
+
+////////////////////////////////
+ ////////////TEST36///////////
+
+struct a{int b;};
+typedef struct a b[23];
+b c;
+int main(){}
+
+
+////////////////////////////////
+ ////////////TEST37///////////
+
+struct a{
+	typedef struct {
+		int a;
+	} a;
+	a b;
+} a;
+
+int main(){}
+
+
+
+test37.c:2:16 error: 'typedef' in 'struct'
+////////////////////////////////
+ ////////////TEST38///////////
+
+int function();
+char function_1(int);
+int main(){}
+
+type int
+type char
+type double
+int function
+char function_1<- int
+int main
+////////////////////////////////
+ ////////////TEST39///////////
+
+int a(int a);
+int main(){}
+
+type int
+type char
+type double
+int a<- int
+int main

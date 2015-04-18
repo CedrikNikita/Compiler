@@ -1,0 +1,11 @@
+type int
+type char
+type double
+int a
+int b
+int main
+       a
+      /
+    +=
+      \
+       b

@@ -1,0 +1,6 @@
+1	1	keyword	int	int
+1	5	identifier	jksd	jksd
+1	10	operation	=	=
+test65.c:1:16 k
+	97ek
+	   ^

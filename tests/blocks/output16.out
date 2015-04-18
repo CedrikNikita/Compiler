@@ -1,0 +1,4 @@
+type int
+type char
+type double
+int main

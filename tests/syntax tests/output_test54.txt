@@ -1,1 +1,0 @@
-test54.c:1:6 error: expected ‘]’  '++' token

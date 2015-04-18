@@ -1,1 +1,0 @@
-test59.c:1:5 error: expression list treated as compound expression in initializer

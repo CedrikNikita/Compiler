@@ -1,0 +1,1117 @@
+////////////////////////////////
+ ////////////TEST1///////////
+
+
+
+////////////////////////////////
+ ////////////TEST2///////////
+
+int main(){
+	2;
+}
+
+
+
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int main
+    2
+////////////////////////////////
+ ////////////TEST3///////////
+
+int main(){
+	int a;
+	a;
+}
+
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int main
+  int a
+    a
+////////////////////////////////
+ ////////////TEST4///////////
+
+int main(){
+	3.1;
+}
+
+
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int main
+    3.1
+////////////////////////////////
+ ////////////TEST5///////////
+
+int main(){
+	2 + 3;
+}
+
+
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int main
+       2
+      /
+    +
+      \
+       3
+////////////////////////////////
+ ////////////TEST6///////////
+
+int main(){
+	3 + 2 - 4 * 2 /2;
+}
+
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int main
+          3
+         /
+       +
+      /
+         \
+          2
+    -
+             4
+            /
+          *
+         /
+            \
+             2
+      \
+       /
+         \
+          2
+////////////////////////////////
+ ////////////TEST7///////////
+
+int main(){
+	a - 3 + 5 * 3.1 + l / 1
+}
+
+////////////////////////////////
+ ////////////TEST8///////////
+
+int main(){
+	3 - 1 - 3 - 4;
+}
+
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int main
+             3
+            /
+          -
+         /
+            \
+             1
+       -
+      /
+         \
+          3
+    -
+      \
+       4
+////////////////////////////////
+ ////////////TEST9///////////
+
+int main(){
+	2 + 3 - 1 + 3 - 4;
+}
+
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int main
+                2
+               /
+             +
+            /
+               \
+                3
+          -
+         /
+            \
+             1
+       +
+      /
+         \
+          3
+    -
+      \
+       4
+////////////////////////////////
+ ////////////TEST10///////////
+
+int main(){
+	(1 - 2);
+}
+
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int main
+       1
+      /
+    -
+      \
+       2
+////////////////////////////////
+ ////////////TEST11///////////
+
+int main(){
+	(1 - (2 -3));
+}
+
+
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int main
+       1
+      /
+    -
+          2
+         /
+      \
+       -
+         \
+          3
+////////////////////////////////
+ ////////////TEST12///////////
+
+int x;
+int main(){
+	--x;
+}
+
+LOLint
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int x
+int main
+    --
+    x
+////////////////////////////////
+ ////////////TEST13///////////
+
+int main(){
+	int a, b;
+	-a + --3.1 + ++b + ++a;
+}
+
+test13.c:3:12 error: expected unqualified-id before ‘3.1’
+////////////////////////////////
+ ////////////TEST14///////////
+
+int main(){
+	2 + 3;
+}
+
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int main
+       2
+      /
+    +
+      \
+       3
+////////////////////////////////
+ ////////////TEST15///////////
+
+int main(){
+	2 + 3;
+}
+
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int main
+       2
+      /
+    +
+      \
+       3
+////////////////////////////////
+ ////////////TEST16///////////
+
++2
+
+
+////////////////////////////////
+ ////////////TEST17///////////
+
+int main(){
+	int a;
+	-(--a) + 3/(-2);
+}
+
+
+////////////////////////////////
+ ////////////TEST18///////////
+
+int main(){
+	int a;
+	--a++;
+}
+
+test18.c:3:7 error: lvalue required as increment operand ‘++’
+////////////////////////////////
+ ////////////TEST19///////////
+
+int main(){
+	int a;
+	----a;
+}
+
+test19.c:3:6 error: expected unqualified-id before ‘--’
+////////////////////////////////
+ ////////////TEST20///////////
+
+int main(){
+	int a;
+	a++++;
+}
+
+test20.c:3:7 error: expected ‘;’ before  ‘++’
+////////////////////////////////
+ ////////////TEST21///////////
+
+int main(){
+	98 + /;
+}
+
+test21.c:2:8 error: expected unqualified-id before ‘/’
+////////////////////////////////
+ ////////////TEST22///////////
+
+int main(){
+	(1+(2+(3+(4+(5+6)))));
+}
+
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int main
+       1
+      /
+    +
+          2
+         /
+      \
+       +
+             3
+            /
+         \
+          +
+                4
+               /
+            \
+             +
+                   5
+                  /
+               \
+                +
+                  \
+                   6
+////////////////////////////////
+ ////////////TEST23///////////
+
+int main(){
+	-(-2);
+}
+
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int main
+    -
+    -
+    2
+////////////////////////////////
+ ////////////TEST24///////////
+
+int main(){
+	--2;
+}
+
+test24.c:2:5 error: expected unqualified-id before ‘2’
+////////////////////////////////
+ ////////////TEST25///////////
+
+int main(){
+	2++;
+}
+
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int main
+       2
+    ++
+////////////////////////////////
+ ////////////TEST26///////////
+
+int main(){
+	(5 + 3;
+}
+
+test26.c:2:9 error: expected ‘)’  ‘;’
+////////////////////////////////
+ ////////////TEST27///////////
+
+int main(){
+	+3;
+}
+
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int main
+    +
+    3
+////////////////////////////////
+ ////////////TEST28///////////
+
+int main(){
+	3 + 5 + ++3;
+}
+
+
+test28.c:2:13 error: expected unqualified-id before ‘3’
+////////////////////////////////
+ ////////////TEST29///////////
+
+int main(){
+	6/3 + 2 -;
+}
+
+test29.c:2:12 error: expected unqualified-id before ‘;’
+////////////////////////////////
+ ////////////TEST30///////////
+
+int main(){
+	7/3.5;
+}
+
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int main
+          7
+         /
+       (double)
+      /
+    /
+      \
+       (double)
+         \
+          3.5
+////////////////////////////////
+ ////////////TEST31///////////
+
+int main(){
+	int a, b;
+	a = b;
+}
+
+
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int main
+  int a
+  int b
+       a
+      /
+    =
+      \
+       b
+////////////////////////////////
+ ////////////TEST32///////////
+
+int a, b;
+int main(){
+	a += b;
+}
+
+
+LOLint
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int a
+int b
+int main
+       a
+      /
+    +=
+      \
+       b
+////////////////////////////////
+ ////////////TEST33///////////
+
+int c, b, a[4];
+int main(){
+	c -= b + 3 + a[3];
+}
+
+LOLint
+////////////////////////////////
+ ////////////TEST34///////////
+
+int a;
+int main(){
+	a |= a;
+}
+
+LOLint
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int a
+int main
+       a
+      /
+    |=
+      \
+       a
+////////////////////////////////
+ ////////////TEST35///////////
+
+int main(){
+	int a, b;
+	a %= b + 3 - 7;
+}
+
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int main
+  int a
+  int b
+       a
+      /
+    %=
+             b
+            /
+          +
+         /
+            \
+             3
+      \
+       -
+         \
+          7
+////////////////////////////////
+ ////////////TEST36///////////
+
+int main(){
+	int a, b, c;
+	a <= b >= c < 5 > 3.1 == 4 != 9;
+}
+
+test36.c:3:31 error: expected ‘;’ before  ‘!=’
+////////////////////////////////
+ ////////////TEST37///////////
+
+int main(){
+	int a;
+	a >>= 3 + 7;
+}
+
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int main
+  int a
+       a
+      /
+    >>=
+          3
+         /
+      \
+       +
+         \
+          7
+////////////////////////////////
+ ////////////TEST38///////////
+
+int main(){
+	int a;
+	a /= 5 * a + (3 == 4);
+}
+
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int main
+  int a
+       a
+      /
+    /=
+             5
+            /
+          *
+         /
+            \
+             a
+      \
+       +
+             3
+            /
+         \
+          ==
+            \
+             4
+////////////////////////////////
+ ////////////TEST39///////////
+
+int main(){
+	sizeof(3);
+}
+
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int main
+    sizeof
+    3
+////////////////////////////////
+ ////////////TEST40///////////
+
+int main(){
+	sizeof(3 + 7 << 2);
+}
+
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int main
+    sizeof
+          3
+         /
+       +
+      /
+         \
+          7
+    <<
+      \
+       2
+////////////////////////////////
+ ////////////TEST41///////////
+
+int main(){
+	int a, b, n;
+	(a == 3) && (b < 7) || n >= 3;
+}
+
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int main
+  int a
+  int b
+  int n
+             a
+            /
+          ==
+         /
+            \
+             3
+       &&
+      /
+             b
+            /
+         \
+          <
+            \
+             7
+    ||
+          n
+         /
+      \
+       >=
+         \
+          3
+////////////////////////////////
+ ////////////TEST42///////////
+
+int main(){
+	*a;
+} 
+
+////////////////////////////////
+ ////////////TEST43///////////
+
+int main(){
+	int a;
+	*&*&*&*&a;
+}
+
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int main
+  int a
+    *
+    &
+    *
+    &
+    *
+    &
+    *
+    &
+    a
+////////////////////////////////
+ ////////////TEST44///////////
+
+int main(){
+	int a, b;
+	a.b;
+}
+
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int main
+  int a
+  int b
+       a
+      /
+    .
+      \
+       b
+////////////////////////////////
+ ////////////TEST45///////////
+
+int main(){
+	int a,b;
+	a.b + 7 - 3;
+} 
+
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int main
+  int a
+  int b
+             a
+            /
+          .
+         /
+            \
+             b
+       +
+      /
+         \
+          7
+    -
+      \
+       3
+////////////////////////////////
+ ////////////TEST46///////////
+
+int main(){
+	int a[50];
+	a[0;
+}
+
+test46.c:3:6 error: expected ‘]’ 
+////////////////////////////////
+ ////////////TEST47///////////
+
+int main(){
+	sizeof(9;
+}
+
+test47.c:2:11 error: expected ‘)’  ‘;’
+////////////////////////////////
+ ////////////TEST48///////////
+
+int main(){
+	int a;
+	a.;
+}
+
+test48.c:3:5 error: expected unqualified-id before ‘;’
+////////////////////////////////
+ ////////////TEST49///////////
+
+int main(){
+	sizeof;
+}
+
+test49.c:2:9 error: expected unqualified-id before ‘;’
+////////////////////////////////
+ ////////////TEST50///////////
+
+int function(){}
+int main(){
+	int a;
+	function(a);
+}
+
+wonderful
+wadsd
+what
+LOLint
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int function
+int main
+  int a
+       function
+      /
+    ()
+      \
+       a
+////////////////////////////////
+ ////////////TEST51///////////
+
+int function(){}
+
+int main(){
+	int a, b;
+	function(a, b);
+}
+
+
+wonderful
+wadsd
+what
+LOLint
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int function
+int main
+  int a
+  int b
+       function
+      /
+    ()
+      \
+       a
+      \
+       b
+////////////////////////////////
+ ////////////TEST52///////////
+
+int function(){}
+int main(){
+	int a;
+	function(a + 8 - 3 * 5, a == 3, 5 + 34);
+}
+
+
+wonderful
+wadsd
+what
+LOLint
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int function
+int main
+  int a
+       function
+      /
+    ()
+             a
+            /
+          +
+         /
+            \
+             8
+      \
+       -
+             3
+            /
+         \
+          *
+            \
+             5
+          a
+         /
+      \
+       ==
+         \
+          3
+          5
+         /
+      \
+       +
+         \
+          34
+////////////////////////////////
+ ////////////TEST53///////////
+
+int main(){
+	int a;
+	a <<=;
+}
+
+test53.c:3:8 error: expected unqualified-id before ‘;’
+////////////////////////////////
+ ////////////TEST54///////////
+
+int main(){
+	int k[3], a;
+	k[a++]++;
+}
+
+wonderful
+wadsd
+what
+LOL
+type int
+type char
+type double
+int main
+  arr k
+  int a
+          k
+         /
+       []
+            \
+             a
+          ++
+    ++
+////////////////////////////////
+ ////////////TEST55///////////
+
+--a[--b]
+
+////////////////////////////////
+ ////////////TEST56///////////
+
+a ,b 
+
+////////////////////////////////
+ ////////////TEST57///////////
+
+a, b , 3 ,5
+
+////////////////////////////////
+ ////////////TEST58///////////
+
+a, p << 1 + 78 - 3 -4 -5 * 3
+
+////////////////////////////////
+ ////////////TEST59///////////
+
+a, 
+
+////////////////////////////////
+ ////////////TEST60///////////
+
+function((a, b, 76 + 34 - muk))
+
+
+////////////////////////////////
+ ////////////TEST61///////////
+
+a(b)
+
+////////////////////////////////
+ ////////////TEST62///////////
+
+a(b + c)
+
+////////////////////////////////
+ ////////////TEST63///////////
+
+a(b*7 == 1, n[5] << 1)
+
+////////////////////////////////
+ ////////////TEST64///////////
+
+b(z,b,56,7.2)
+
+
+////////////////////////////////
+ ////////////TEST65///////////
+
+a == b == c
+
+////////////////////////////////
+ ////////////TEST66///////////
+
+a << b << c
+
+////////////////////////////////
+ ////////////TEST67///////////
+
+a ^ b ^ c
+
+////////////////////////////////
+ ////////////TEST68///////////
+
+a & b & c *c * 5  % 3 % s & a & 2
+
+////////////////////////////////
+ ////////////TEST69///////////
+
+((((((((((((((a))))))))))))))
+
+////////////////////////////////
+ ////////////TEST70///////////
+
+a(b, c, z
+
+////////////////////////////////
+ ////////////TEST71///////////
+
+a(b, 7, 8)
+
+
+////////////////////////////////
+ ////////////TEST72///////////
+
+a(b(c(n, b))))
+
+////////////////////////////////
+ ////////////TEST73///////////
+
+
+

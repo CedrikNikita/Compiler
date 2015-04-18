@@ -1,0 +1,1 @@
+test42.c:2:5 error: "a" was not declarated in this scope

@@ -1,1 +1,0 @@
-test68.c:1:34 error: expected unqualified-id before '' token

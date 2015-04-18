@@ -1,0 +1,14 @@
+type int
+type char
+type double
+int function
+int main
+  int a
+  int b
+       function
+      /
+    ()
+      \
+       a
+      \
+       b

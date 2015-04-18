@@ -1,1 +1,0 @@
-test47.c:1:11 error: expected ‘)’  '' token

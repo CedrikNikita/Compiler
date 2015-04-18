@@ -1,0 +1,11 @@
+type int
+type char
+type double
+type int*
+type int**
+type int***
+type int****
+type int*****
+type int******
+int****** a
+int main

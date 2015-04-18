@@ -1,0 +1,1 @@
+test18.c:3:7 error: lvalue required as increment operand ‘++’

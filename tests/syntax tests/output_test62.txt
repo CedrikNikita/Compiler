@@ -1,1 +1,0 @@
-test62.c:1:9 error: expected ‘)’  '' token

@@ -1,3 +1,0 @@
-1	1	keyword	float	float
-1	7	identifier	kij	kij
-1	11	operation	=	=

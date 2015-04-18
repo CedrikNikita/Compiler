@@ -1,0 +1,6 @@
+type int
+type char
+type double
+type struct a
+struct a b
+int main

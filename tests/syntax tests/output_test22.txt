@@ -1,1 +1,0 @@
-test22.c:1:22 error: expected ‘)’  '' token

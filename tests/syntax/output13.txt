@@ -1,0 +1,1 @@
+test13.c:3:12 error: expected unqualified-id before ‘3.1’

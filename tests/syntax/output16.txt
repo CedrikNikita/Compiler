@@ -1,0 +1,1 @@
+test16.c:1:2 error: "+" was not declarated in this scope

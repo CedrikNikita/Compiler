@@ -1,0 +1,1 @@
+test56.c:1:2 error: "a" was not declarated in this scope

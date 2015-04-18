@@ -1,0 +1,1 @@
+test20.c:3:7 error: expected ‘;’ before  ‘++’

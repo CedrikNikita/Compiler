@@ -1,0 +1,8 @@
+type int
+type char
+type double
+int const a
+int const b
+int const c
+double const d
+int main

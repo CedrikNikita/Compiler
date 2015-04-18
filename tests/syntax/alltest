@@ -1,0 +1,695 @@
+////////////////////////////////
+ ////////////TEST1///////////
+
+
+
+////////////////////////////////
+ ////////////TEST2///////////
+
+int main(){
+	2;
+}
+
+
+
+type int
+type char
+type double
+int main
+    2
+////////////////////////////////
+ ////////////TEST3///////////
+
+int main(){
+	int a;
+	a;
+}
+
+test3.c:4:2 error: expected unqualified-id before ‘’
+////////////////////////////////
+ ////////////TEST4///////////
+
+int main(){
+	3.1;
+}
+
+
+type int
+type char
+type double
+int main
+    3.1
+////////////////////////////////
+ ////////////TEST5///////////
+
+int main(){
+	2 + 3;
+}
+
+
+type int
+type char
+type double
+int main
+       2
+      /
+    +
+      \
+       3
+////////////////////////////////
+ ////////////TEST6///////////
+
+int main(){
+	3 + 2 - 4 * 2 /2;
+}
+
+test6.c:3:2 error: expected unqualified-id before ‘’
+////////////////////////////////
+ ////////////TEST7///////////
+
+int main(){
+	a - 3 + 5 * 3.1 + l / 1
+}
+
+test7.c:2:5 error: "a" was not declarated in this scope
+////////////////////////////////
+ ////////////TEST8///////////
+
+int main(){
+	3 - 1 - 3 - 4;
+}
+
+test8.c:3:2 error: expected unqualified-id before ‘’
+////////////////////////////////
+ ////////////TEST9///////////
+
+int main(){
+	2 + 3 - 1 + 3 - 4;
+}
+
+test9.c:3:2 error: expected unqualified-id before ‘’
+////////////////////////////////
+ ////////////TEST10///////////
+
+int main(){
+	(1 - 2);
+}
+
+test10.c:3:2 error: expected unqualified-id before ‘’
+////////////////////////////////
+ ////////////TEST11///////////
+
+int main(){
+	(1 - (2 -3));
+}
+
+
+type int
+type char
+type double
+int main
+       1
+      /
+    -
+          2
+         /
+      \
+       -
+         \
+          3
+////////////////////////////////
+ ////////////TEST12///////////
+
+int x;
+int main(){
+	--x;
+}
+
+test12.c:4:2 error: expected unqualified-id before ‘’
+////////////////////////////////
+ ////////////TEST13///////////
+
+int main(){
+	int a, b;
+	-a + --3.1 + ++b + ++a;
+}
+
+test13.c:3:12 error: expected unqualified-id before ‘3.1’
+////////////////////////////////
+ ////////////TEST14///////////
+
+int main(){
+	2 + 3;
+}
+
+test14.c:3:2 error: expected unqualified-id before ‘’
+////////////////////////////////
+ ////////////TEST15///////////
+
+int main(){
+	2 + 3;
+}
+
+test15.c:3:2 error: expected unqualified-id before ‘’
+////////////////////////////////
+ ////////////TEST16///////////
+
++2
+
+
+test16.c:1:2 error: "+" was not declarated in this scope
+////////////////////////////////
+ ////////////TEST17///////////
+
+int main(){
+	int a;
+	-(--a) + 3/(-2);
+}
+
+
+////////////////////////////////
+ ////////////TEST18///////////
+
+int main(){
+	int a;
+	--a++;
+}
+
+test18.c:3:7 error: lvalue required as increment operand ‘++’
+////////////////////////////////
+ ////////////TEST19///////////
+
+int main(){
+	int a;
+	----a;
+}
+
+test19.c:3:6 error: expected unqualified-id before ‘--’
+////////////////////////////////
+ ////////////TEST20///////////
+
+int main(){
+	int a;
+	a++++;
+}
+
+test20.c:3:7 error: expected ‘;’ before  ‘++’
+////////////////////////////////
+ ////////////TEST21///////////
+
+int main(){
+	98 + /;
+}
+
+test21.c:2:8 error: expected unqualified-id before ‘/’
+////////////////////////////////
+ ////////////TEST22///////////
+
+int main(){
+	(1+(2+(3+(4+(5+6)))));
+}
+
+test22.c:3:2 error: expected unqualified-id before ‘’
+////////////////////////////////
+ ////////////TEST23///////////
+
+int main(){
+	-(-2);
+}
+
+test23.c:3:2 error: expected unqualified-id before ‘’
+////////////////////////////////
+ ////////////TEST24///////////
+
+int main(){
+	--2;
+}
+
+test24.c:2:5 error: expected unqualified-id before ‘2’
+////////////////////////////////
+ ////////////TEST25///////////
+
+int main(){
+	2++;
+}
+
+test25.c:3:2 error: expected unqualified-id before ‘’
+////////////////////////////////
+ ////////////TEST26///////////
+
+int main(){
+	(5 + 3;
+}
+
+test26.c:2:9 error: expected ‘)’  ‘;’
+////////////////////////////////
+ ////////////TEST27///////////
+
+int main(){
+	+3;
+}
+
+test27.c:3:2 error: expected unqualified-id before ‘’
+////////////////////////////////
+ ////////////TEST28///////////
+
+int main(){
+	3 + 5 + ++3;
+}
+
+
+test28.c:2:13 error: expected unqualified-id before ‘3’
+////////////////////////////////
+ ////////////TEST29///////////
+
+int main(){
+	6/3 + 2 -;
+}
+
+test29.c:2:12 error: expected unqualified-id before ‘;’
+////////////////////////////////
+ ////////////TEST30///////////
+
+int main(){
+	7/3.5;
+}
+
+test30.c:3:2 error: expected unqualified-id before ‘’
+////////////////////////////////
+ ////////////TEST31///////////
+
+int main(){
+	int a, b;
+	a = b;
+}
+
+
+type int
+type char
+type double
+int main
+  int a
+  int b
+       a
+      /
+    =
+      \
+       b
+////////////////////////////////
+ ////////////TEST32///////////
+
+int a, b;
+int main(){
+	a += b;
+}
+
+
+type int
+type char
+type double
+int a
+int b
+int main
+       a
+      /
+    +=
+      \
+       b
+////////////////////////////////
+ ////////////TEST33///////////
+
+int c, b, a[4];
+int main(){
+	c -= b + 3 + a[3];
+}
+
+////////////////////////////////
+ ////////////TEST34///////////
+
+int a;
+int main(){
+	a |= a;
+}
+
+test34.c:4:2 error: expected unqualified-id before ‘’
+////////////////////////////////
+ ////////////TEST35///////////
+
+int main(){
+	int a, b;
+	a %= b + 3 - 7;
+}
+
+test35.c:4:2 error: expected unqualified-id before ‘’
+////////////////////////////////
+ ////////////TEST36///////////
+
+int main(){
+	int a, b, c;
+	a <= b >= c < 5 > 3.1 == 4 != 9;
+}
+
+test36.c:3:31 error: expected ‘;’ before  ‘!=’
+////////////////////////////////
+ ////////////TEST37///////////
+
+int main(){
+	int a;
+	a >>= 3 + 7;
+}
+
+test37.c:4:2 error: expected unqualified-id before ‘’
+////////////////////////////////
+ ////////////TEST38///////////
+
+int main(){
+	int a;
+	a /= 5 * a + (3 == 4);
+}
+
+test38.c:4:2 error: expected unqualified-id before ‘’
+////////////////////////////////
+ ////////////TEST39///////////
+
+int main(){
+	sizeof(3);
+}
+
+test39.c:3:2 error: expected unqualified-id before ‘’
+////////////////////////////////
+ ////////////TEST40///////////
+
+int main(){
+	sizeof(3 + 7 << 2);
+}
+
+test40.c:3:2 error: expected unqualified-id before ‘’
+////////////////////////////////
+ ////////////TEST41///////////
+
+int main(){
+	int a, b, n;
+	(a == 3) && (b < 7) || n >= 3;
+}
+
+test41.c:4:2 error: expected unqualified-id before ‘’
+////////////////////////////////
+ ////////////TEST42///////////
+
+int main(){
+	*a;
+} 
+
+test42.c:2:5 error: "a" was not declarated in this scope
+////////////////////////////////
+ ////////////TEST43///////////
+
+int main(){
+	int a;
+	*&*&*&*&a;
+}
+
+test43.c:4:2 error: expected unqualified-id before ‘’
+////////////////////////////////
+ ////////////TEST44///////////
+
+int main(){
+	int a, b;
+	a.b;
+}
+
+test44.c:4:2 error: expected unqualified-id before ‘’
+////////////////////////////////
+ ////////////TEST45///////////
+
+int main(){
+	int a,b;
+	a.b + 7 - 3;
+} 
+
+type int
+type char
+type double
+int main
+  int a
+  int b
+             a
+            /
+          .
+         /
+            \
+             b
+       +
+      /
+         \
+          7
+    -
+      \
+       3
+////////////////////////////////
+ ////////////TEST46///////////
+
+int main(){
+	int a[50];
+	a[0;
+}
+
+test46.c:3:6 error: expected ‘]’ 
+////////////////////////////////
+ ////////////TEST47///////////
+
+int main(){
+	sizeof(9;
+}
+
+test47.c:2:11 error: expected ‘)’  ‘;’
+////////////////////////////////
+ ////////////TEST48///////////
+
+int main(){
+	int a;
+	a.;
+}
+
+test48.c:3:5 error: expected unqualified-id before ‘;’
+////////////////////////////////
+ ////////////TEST49///////////
+
+int main(){
+	sizeof;
+}
+
+test49.c:2:9 error: expected unqualified-id before ‘;’
+////////////////////////////////
+ ////////////TEST50///////////
+
+int function(){}
+int main(){
+	int a;
+	function(a);
+}
+
+test50.c:5:2 error: expected unqualified-id before ‘’
+////////////////////////////////
+ ////////////TEST51///////////
+
+int function(){}
+
+int main(){
+	int a, b;
+	function(a, b);
+}
+
+
+type int
+type char
+type double
+int function
+int main
+  int a
+  int b
+       function
+      /
+    ()
+      \
+       a
+      \
+       b
+////////////////////////////////
+ ////////////TEST52///////////
+
+int function(){}
+int main(){
+	int a;
+	function(a + 8 - 3 * 5, a == 3, 5 + 34);
+}
+
+
+type int
+type char
+type double
+int function
+int main
+  int a
+       function
+      /
+    ()
+             a
+            /
+          +
+         /
+            \
+             8
+      \
+       -
+             3
+            /
+         \
+          *
+            \
+             5
+          a
+         /
+      \
+       ==
+         \
+          3
+          5
+         /
+      \
+       +
+         \
+          34
+////////////////////////////////
+ ////////////TEST53///////////
+
+int main(){
+	int a;
+	a <<=;
+}
+
+test53.c:3:8 error: expected unqualified-id before ‘;’
+////////////////////////////////
+ ////////////TEST54///////////
+
+int main(){
+	int k[3], a;
+	k[a++]++;
+}
+
+////////////////////////////////
+ ////////////TEST55///////////
+
+--a[--b]
+
+test55.c:1:3 error: "--" was not declarated in this scope
+////////////////////////////////
+ ////////////TEST56///////////
+
+a ,b 
+
+test56.c:1:2 error: "a" was not declarated in this scope
+////////////////////////////////
+ ////////////TEST57///////////
+
+a, b , 3 ,5
+
+test57.c:1:2 error: "a" was not declarated in this scope
+////////////////////////////////
+ ////////////TEST58///////////
+
+a, p << 1 + 78 - 3 -4 -5 * 3
+
+test58.c:1:2 error: "a" was not declarated in this scope
+////////////////////////////////
+ ////////////TEST59///////////
+
+a, 
+
+test59.c:1:2 error: "a" was not declarated in this scope
+////////////////////////////////
+ ////////////TEST60///////////
+
+function((a, b, 76 + 34 - muk))
+
+
+test60.c:1:9 error: "function" was not declarated in this scope
+////////////////////////////////
+ ////////////TEST61///////////
+
+a(b)
+
+test61.c:1:2 error: "a" was not declarated in this scope
+////////////////////////////////
+ ////////////TEST62///////////
+
+a(b + c)
+
+test62.c:1:2 error: "a" was not declarated in this scope
+////////////////////////////////
+ ////////////TEST63///////////
+
+a(b*7 == 1, n[5] << 1)
+
+test63.c:1:2 error: "a" was not declarated in this scope
+////////////////////////////////
+ ////////////TEST64///////////
+
+b(z,b,56,7.2)
+
+
+test64.c:1:2 error: "b" was not declarated in this scope
+////////////////////////////////
+ ////////////TEST65///////////
+
+a == b == c
+
+test65.c:1:2 error: "a" was not declarated in this scope
+////////////////////////////////
+ ////////////TEST66///////////
+
+a << b << c
+
+test66.c:1:2 error: "a" was not declarated in this scope
+////////////////////////////////
+ ////////////TEST67///////////
+
+a ^ b ^ c
+
+test67.c:1:2 error: "a" was not declarated in this scope
+////////////////////////////////
+ ////////////TEST68///////////
+
+a & b & c *c * 5  % 3 % s & a & 2
+
+test68.c:1:2 error: "a" was not declarated in this scope
+////////////////////////////////
+ ////////////TEST69///////////
+
+((((((((((((((a))))))))))))))
+
+test69.c:1:2 error: "(" was not declarated in this scope
+////////////////////////////////
+ ////////////TEST70///////////
+
+a(b, c, z
+
+test70.c:1:2 error: "a" was not declarated in this scope
+////////////////////////////////
+ ////////////TEST71///////////
+
+a(b, 7, 8)
+
+
+test71.c:1:2 error: "a" was not declarated in this scope
+////////////////////////////////
+ ////////////TEST72///////////
+
+a(b(c(n, b))))
+
+test72.c:1:2 error: "a" was not declarated in this scope
+////////////////////////////////
+ ////////////TEST73///////////
+
+
+

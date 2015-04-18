@@ -1,1 +1,0 @@
-test18.c:1:6 error: lvalue required as increment operand '++' token

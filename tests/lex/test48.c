@@ -1,0 +1,35 @@
+int main() {
+    LSQ_HandleT h = LSQ_CreateSequence(cloneKey, len, cmp, cloneVal);
+        assert(LSQ_GetSize(h) == 0);
+        int v = 666;
+        LSQ_InsertElement(h, "qqq", &v);
+        assert(LSQ_GetSize(h) == 1);
+        printf("%s\n", "lax1");
+        LSQ_IteratorT i = LSQ_GetElementByIndex(h, "qqq");
+            assert(LSQ_IsIteratorDereferencable(i));
+            assert(*((int *)LSQ_DereferenceIterator(i)) == 666);
+        LSQ_DestroyIterator(i);
+        printf("%s\n", "lax2");
+        LSQ_DeleteElement(h, "qqq");
+        printf("%s\n", "lax3");
+        assert(LSQ_GetSize(h) == 0);
+        LSQ_DeleteElement(h, "qqq");
+        LSQ_DeleteElement(h, "iddqd");
+        printf("%s\n", "lax4");
+    LSQ_DestroySequence(h);
+    printf("%s\n", "lax5");
+    //----
+    h = LSQ_CreateSequence(cloneKey, len, cmp, cloneVal);
+        i = LSQ_GetPastRearElement(h);
+        assert(!LSQ_IsIteratorDereferencable(i));
+        LSQ_AdvanceOneElement(i);
+        assert(!LSQ_IsIteratorDereferencable(i));
+        LSQ_DestroyIterator(i);
+        i = LSQ_GetFrontElement(h);
+        printf("%s\n", "lax6");
+        assert(LSQ_IsIteratorPastRear(i));
+        printf("%s\n", "lax7");
+        assert(!LSQ_IsIteratorDereferencable(i));
+        LSQ_AdvanceOneElement(i);
+        assert(LSQ_IsIteratorPastRear(i));
+        assert(!LSQ_IsIteratorDereferencable(i));

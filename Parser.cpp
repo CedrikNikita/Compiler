@@ -2,242 +2,163 @@
 #include <set>
 #include "Parser.hpp"
 
-bool function = 0;
-bool prefix = 0;
-Scanner :: Lexem querentOp;
+set<Condition> priorityTable[15] = {{}, {}, {}, {C_ASTERISK, C_DIV, C_MOD}, {C_MINUS, C_PLUS}, {C_SHIFTL, C_SHIFTR}, 
+	{C_LESS, C_GREATER, C_LESSEQUAL, C_GREATEREQUAL}, {C_EQUAL}, {C_ANDBIN},
+	{C_XOR}, {C_ORBIN}, {C_AND}, {C_OR}, {C_COMMA}};
 
-map<int, set<Condition>> priorityTable = {
-	{3, {C_ASTERISK, C_DIV, C_MOD}}, {4, {C_MINUS, C_PLUS}}, {5, {C_SHIFTL, C_SHIFTR}}, 
-	{6, {C_LESS, C_GREATER, C_LESSEQUAL, C_GREATEREQUAL}}, {7,  {C_EQUAL, C_NOT}}, {8, {C_ANDBIN}},
-	{9, {C_XOR}}, {10, {C_ORBIN}}, {11, {C_AND}}, {12, {C_OR}}, {14, {C_COMMA}}};
+static void IfNotBracer(Scanner :: Lexem tok){
+	if(tok != C_BRACER)
+		throw SyntaxError("error: expected ‘)’ ");
+}
 
-ExprNode* Parser :: ParseExpr(int priority){
+ExprNode* Parser :: parseExpr(int priority, bool brace, bool conv, Condition currentOp){
 	if(priority == P_Postfix)
-		return ParsePostfix();
+		return parsePostfix(brace, conv, currentOp);
 	if(priority == P_Assign)
-		return ParseAssign();
-	auto temp  = priorityTable.find(priority)->second;
-	auto res = ParseExpr(priority - 1);
-	if(temp.find(querentOp.getEnum()) != temp.end()) return res;
+		return parseAssign(brace, conv, currentOp);
+	auto temp  = priorityTable[priority];
+	auto res = parseExpr(priority - 1, brace, conv, currentOp);
+	if(temp.find(currentOp) != temp.end()) return res;
 	while(temp.find(scan->get().getEnum()) != temp.end()){
-		auto op = querentOp = scan->get();
+		auto op = scan->get().getEnum();
 		scan->next();
-		if((function) && (priority == P_Comma))
-			res = new FuncVarNode(op.getEnum(), res, ParseExpr(priority));
-		else
-			res = new BinOpNode(op.getEnum(), res, ParseExpr(priority));
+		res = new BinOpNode(op, res, parseExpr(priority, brace, conv, op));
 	}
 	return res;
 }
 
-ExprNode* Parser :: ParseAssign(){
-	auto res = ParseExpr(P_Or);
+ExprNode* Parser :: parseAssign(bool brace, bool conv, Condition currentOp){
+	auto res = parseExpr(P_Or, brace, conv, currentOp);
 	auto op = scan->get();
 	if(op == C_ASSIGN || op == C_PLUSEQUAL || op == C_MINUSEQUAL 
 	  || op == C_ASTERISKEQUAL || op == C_DIVEQUAL || op == C_MODEQUAL
 	  || op == C_ANDBINEQUAL || op == C_ORBINEQUAL
 	  || op == C_SHIFTLEQUAL || op == C_SHIFTREQUAL){
+	  	if(!res->islvalue())
+			throw SyntaxError("error: lvalue required as left operand of assignment");
+		if(2 == res->islvalue())
+			throw SyntaxError("error: assignment of read-only variable ");
 		scan->next();
-		res = new BinOpNode(op.getEnum(), res, ParseAssign());
+		res = new BinOpNode(op.getEnum(), res, parseAssign(brace, conv, op.getEnum()));
 	}
 	else if(op == C_TERNARYQ){
 		scan->next();
-		auto expif = ParseExpr(P_Comma);
+		auto expif = parseExpr(P_Comma, brace, conv, currentOp);
 		if(scan->get() != C_TERNARYC){
-			throw SyntaxError("error: expected ‘:’ ", scan, 0);
-		}
-		else{
+			throw SyntaxError("error: expected ‘:’ ");
 			scan->next();
-			res = new TernOpNode(res, expif, ParseAssign());    			//ParseExpr()
-		}
+			res = new TernOpNode(res, expif, parseAssign(brace, conv, op.getEnum()));
+		}		
 	}
 	return res;
 }
 
-ExprNode* Parser ::  ParsePostfix(){
-	auto res = ParseBrace();
+ExprNode* Parser ::  parsePostfix(bool brace, bool conv, Condition currentOp){
+	auto res = parseBrace(brace, conv, currentOp);
 	auto op = scan->get();
 	if(op == C_DECREMENT || op == C_INCREMENT){
-		if(prefix)
-			throw SyntaxError("error: lvalue required as increment operand", scan);
+		/*if(prefix)
+			throw SyntaxError("error: lvalue required as increment operand", 0); */		//TODO 
 		scan->next();
 		res = new UnOpNode(op.getEnum(), res);
 	}
-	prefix = 0;
 	return res;
 }
 
-ExprNode* Parser :: ParseBrace(){
-	auto res = ParseFactor();
+ExprNode* Parser :: parseBrace(bool brace, bool conv, Condition currentOp){
+	auto res = parsePrefix(brace, conv, currentOp);
 	auto op = scan->get();
 	if(op == C_SQUAREBRACEL){
-		prefix = 0;
-		scan->next();
-		auto index = ParseBrace();
-		if(scan->get() != C_SQUAREBRACER)
-			throw SyntaxError("error: expected ‘]’ ", scan, 0);	
-		scan->next();
-		res = new ArrayNode(res, index);
+		ListStmt* list = NULL;
+		while(op == C_SQUAREBRACEL){
+			scan->next();
+			list = addStmt(list, (StmtNode*)parseExpr(P_Comma, brace, conv, op.getEnum()));
+			if(scan->get() != C_SQUAREBRACER)
+				throw SyntaxError("error: expected ‘]’ ");	
+			op = scan->next();
+		}
+		res = new ArrayNode(res, list);
 	}
 	else if(op == C_FIELD || op == C_FIELDPTR){
 		scan->next();
-		res = new BinOpNode(op.getEnum(), res, ParseFactor());
+		res = new BinOpNode(op.getEnum(), res, parseFactor(brace, conv, op.getEnum()));
 	}
 	else if(op == C_BRACEL){
-		prefix = 0;
-		function = 1;
 		scan->next();
-		auto result = ParseExpr(P_Comma);
-		function = 0;
-		if(scan->get() != C_BRACER)
-			throw SyntaxError("error: expected ‘)’ ", scan, 0);
+		bool comma = 1;
+		ListStmt* list = NULL;
+		while(comma){
+			list = addStmt(list, (StmtNode*)parseExpr(P_Assign, brace, conv, op.getEnum()));
+			if(scan->get() != C_COMMA) comma = 0;
+			else scan->next();
+		}
+		IfNotBracer(scan->get());
 		scan->next();
-		res = new BinOpNode(C_BRACEL, res, result);
+		res = new FuncVarNode(res, list);
 	}
 	return res;
 }
 
-ExprNode* Parser ::  ParseFactor(){
+ExprNode* Parser::parsePrefix(bool brace, bool conv, Condition currentOp){
 	auto tok = scan->get();
-	if((tok == C_INCREMENT || tok == C_DECREMENT || tok == C_MINUS || 															
-		tok == C_PLUS || tok == C_NOT || tok == C_NOTBIN || tok == C_ASTERISK || tok == C_ANDBIN) && (prefix == 0)){
-		prefix = 1;
-		if(tok == C_MINUS || tok == C_PLUS || tok == C_NOT || tok == C_NOTBIN || tok == C_ASTERISK || tok == C_ANDBIN) prefix = 0;
+	if ((tok == C_INCREMENT || tok == C_DECREMENT || tok == C_MINUS || tok == C_PLUS 
+		|| tok == C_NOT || tok == C_NOTBIN || tok == C_ASTERISK || tok == C_ANDBIN)){
 		scan->next();
-		return new UnOpNode(ParseFactor(), tok.getEnum());
+		return new UnOpNode(parseFactor(brace, conv, tok.getEnum()), tok.getEnum());
 	}
+	return parseFactor(brace, conv, currentOp);
+}
 
-	if((tok == C_INT || tok == C_INT_EXP || tok == C_INT_8 || tok == C_INT_16) && (prefix == 0)){
+ExprNode* Parser ::  parseFactor(bool brace, bool conv, Condition currentOp){
+	auto tok = scan->get();
+	if(tok == C_INT){
 		scan->next();
-		return new iConstNode(tok.getintValue());
+		return new ConstIntNode(tok);
 	}
-	else if((tok == C_DOUBLE || tok == C_DOUBLE_CHECK_EXP || tok == C_DOUBLE_EXP) && (prefix == 0)){
+	if(tok == C_DOUBLE){
 		scan->next();
-		return new dConstNode(tok.getdoubValue());
+		return new ConstDoubleNode(tok);
 	}
-	else if(tok == C_IDENTIFIER){
+	if(tok == C_CHAREND){
 		scan->next();
-		querentOp = tok;
-		if(Sym.Table.find(tok.getstrValue()) == Sym.Table.end())
-			throw SyntaxError("error: \"" + tok.getstrValue() + "\" was not declarated in this scope", scan, 0);
-		return new VarNode((SymVar*)Sym.Table.find(tok.getstrValue())->second);
+		return new ConstCharNode(tok);
 	}
-	else if(tok == C_BRACEL){
-		prefix = 0;
-		Scanner :: Lexem a(1, 1, "", "", C_END);
-		function = 0;
+	if(tok == C_IDENTIFIER){
+		auto Sym = stack.peek();
+		bool asterisk = false;
+		ExprNode* res = NULL;
 		scan->next();
-		querentOp = a;
-		auto result = ParseExpr(P_Comma);
-		querentOp = a;
-		if(scan->get() != C_BRACER)
-			throw SyntaxError("error: expected ‘)’ ", scan);
+		auto name = stack.requireIdentifier(tok.getstrValue(), true);
+		if(name->isType() && brace){
+			int temp = 0;
+			int* brace_number = &temp;
+			auto type = tok.getstrValue();
+			if(scan->get() == C_ASTERISK) asterisk = true;
+			auto symbol = parsePointer(stack.requireIdentifier(type, true), brace_number, true);
+			IfNotBracer(scan->get());
+			scan->next();
+			if(Sym.Table.find(type) == Sym.Table.end() && asterisk)
+				res = new ConvNode(parseExpr(P_Comma, brace, true, tok.getEnum()), (SymType*)symbol);	
+			else if(Sym.Table.find(type) != Sym.Table.end())
+				res = new ConvNode(parseExpr(P_Comma, brace, true, tok.getEnum()), (SymType*)symbol);
+		}
+		else
+			res = new VarNode((SymVar*)name);
+		return res;
+	}
+	if(tok == C_BRACEL){
 		scan->next();
+		auto result = parseExpr(P_Comma, true, conv, C_END);
+		if(scan->get() != C_BRACER && !conv)
+			throw SyntaxError("error: expected ‘)’ ", 0);
+		if(scan->get() == C_BRACER) scan->next();
 		return result;
 	}
-	else if(tok == C_SIZEOF){
+	if(tok == C_SIZEOF){
 		scan->next();
-		return new UnOpNode(ParseExpr(P_Comma), tok.getEnum());
+		return new UnOpNode(parseExpr(P_Comma, brace, conv, currentOp), tok.getEnum());
 	}
-	else
-		if((querentOp == C_COMMA) && (scan->get() == C_END || scan->get() == C_BRACER))
-			throw SyntaxError("error: expression list treated as compound expression in initializer", scan, 0);			
-		else 
-			throw SyntaxError("error: expected unqualified-id before", scan);
-}
-
-static bool MainCheck(Scanner* scan){
-	if(scan->get().getstrValue() == "main"){
-		scan->next();
-		if(scan->get() == C_BRACEL){
-			scan->next();
-			if(scan->get() == C_BRACER){
-				scan->next();
-				if(scan->get() == C_CURLYBRACEL) return 1;
-			}
-			else
-				throw SyntaxError("error: expected \"(\" after \"main\"", scan);
-		}
-		else 
-			throw SyntaxError("error: expected \")\" after (", scan);
-	}
-	return 0;
-}
-/*
-static void AddType(Scanner* scan){
-	scan->next();
-	auto tok = sacn->get();
-	if(Sym.Table.find(tok.getstrValue()) != Sym.Table.end() && Sym.Table[tok.getstrValue()]->Istype()){
-		scan->next();
-		tok = scan->get();
-		if(Sym.Table.find(tok.getstrValue()) != Sym.Table.end() && !Sym.Table[tok.getstrValue()]->Istype())
-			throw SyntaxError(error: ‘typedef int a’ redeclared as different kind of symbol)
-	}
-
-
-}*/
-
-void Parser :: ParseDeclaration(){
-	auto tok = scan->get();
-	if(tok == D_const) scan->next();						//Поменять потом
-	string type = tok.getstrValue();
-	scan->next();
-	if(tok == D_int && MainCheck(scan)){
-		scan->next();
-		return;
-	}
-	tok = scan->get();
-	bool comma = 1;
-	while(comma){
-		int count_asterisk = 0;
-		while(tok == C_ASTERISK){
-			scan->next();
-			tok = scan->get();
-			count_asterisk++;
-		}
-		if(tok == C_IDENTIFIER && Sym.Table.find(tok.getstrValue()) == Sym.Table.end()){
-			string temp_type = type;
-			if(count_asterisk){
-				for(int i = 0; i < count_asterisk; i++) temp_type += '*';
-				Sym.Table[temp_type] = new SymTypePointer(temp_type);	
-			}
-			Sym.addVar(new SymVar(Sym.Table[temp_type], tok.getstrValue()));
-			scan->next();
-			if(scan->get() != C_COMMA){
-				comma = 0;
-				if(scan->get() != C_SEMICOLON)
-					throw SyntaxError("error: expected initializer", scan);
-			}
-			scan->next();
-			tok = scan->get();
-		}
-		else if(tok != C_IDENTIFIER)
-			throw SyntaxError("error: expected unqualified-id before numeric constant", scan);
-		else if(Sym.Table.find(tok.getstrValue()) != Sym.Table.end())
-			throw SyntaxError("error: rediclaration of \"" + type + " " + tok.getstrValue() + "\"", scan, 0);
-	}
-}
-
-void Parser :: print(){
-	Sym.Table["int"] = new SymInt();
-	Sym.Table["char"] = new SymChar();
-	Sym.Table["double"] = new SymDouble();
-	auto tok = scan->get();
-	while((Sym.Table.find(tok.getstrValue()) != Sym.Table.end() 
-		  && Sym.Table[tok.getstrValue()]->Istype()) || tok == D_const || tok == D_typedef){
-		//if(tok == D_typedef) AddType(scan);
-		ParseDeclaration();
-		tok = scan->get();
-	}
-	int i = 0;
-	while(scan->get() != C_CURLYBRACER){
-		res[i] = ParseExpr(P_Comma);
-		i++;
-		scan->next();
-	}
-	for(int j = 0; j < i; j++){
-		res[j]->print(0, T_None);
-		printf("\n");
-	}
-	Sym.print();
+	if((currentOp == C_COMMA) && (scan->get() == C_END || scan->get() == C_BRACER))
+		throw SyntaxError("error: expression list treated as compound expression in initializer");
+	throw SyntaxError("error: expected unqualified-id before", true); 
 }

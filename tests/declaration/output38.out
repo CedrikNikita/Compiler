@@ -1,0 +1,6 @@
+type int
+type char
+type double
+int function
+char function_1<- int
+int main

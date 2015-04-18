@@ -1,0 +1,19 @@
+type int
+type char
+type double
+int main
+  int a
+  int b
+             a
+            /
+          .
+         /
+            \
+             b
+       +
+      /
+         \
+          7
+    -
+      \
+       3

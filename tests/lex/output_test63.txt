@@ -1,0 +1,6 @@
+1	1	identifier	float	float
+1	7	identifier	kij	kij
+1	11	operation	=	=
+test63.c:1:17 k
+	1e5k
+	   ^

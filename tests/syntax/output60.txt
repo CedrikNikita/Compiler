@@ -1,0 +1,1 @@
+test60.c:1:9 error: "function" was not declarated in this scope
