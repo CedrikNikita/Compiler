@@ -1,0 +1,4 @@
+1	1	keyword	int	int
+test59.c:1:10 unable to find numeric literal operator ‘operator""s
+	8878s
+	    ^

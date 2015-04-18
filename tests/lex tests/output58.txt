@@ -1,0 +1,3 @@
+test58.c:1:4 missing terminating ' character 
+	'k 
+	  ^

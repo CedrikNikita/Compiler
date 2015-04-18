@@ -3,6 +3,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+static string Set_cap(int pos){
+	string str;
+	for(int i = 0; i < pos; i++)
+		str += ' ';
+	str += '^';
+	return str;
+}
+
 void mes_error_input(){
 	printf("%s\n", "ccc:\tfatal error: no input files");
 }
@@ -21,17 +29,34 @@ void Scan(char* filename){
 		while(Sc.next() != Eof)
 			Sc.get().print();
 	}
-	catch(Error& e){}
+	catch(Error& e){
+		int last = e.Lex.getText().size();
+		cout << e.filename << ":" << e.Lex.getX() << ":" << e.Lex.getY() + last << ' ' + e.str << (e.Lex.getText()).substr(last - e.end, e.end) << endl 
+		<< '\t' + e.Lex.getText() << endl
+		<< '\t' + Set_cap(last - e.end) << endl;
+	}
 }
 
 void Parse(char* filename){
 	Scanner Sc(filename);
-	if(Sc.next() != Eof){
+	try{ 
+		Sc.next();
+	}
+	catch(Error& e){
+		int last = e.Lex.getText().size();
+		cout << e.filename << ":" << e.Lex.getX() << ":" << e.Lex.getY() + last << ' ' + e.str << (e.Lex.getText()).substr(last - e.end, e.end) << endl 
+		<< '\t' + e.Lex.getText() << endl
+		<< '\t' + Set_cap(last - e.end) << endl;		
+	}
+
+	if(Sc.get() != Eof){
 		try{
 			Parser Pa(&Sc);
 			Pa.print();
 		}
-		catch(SyntaxError& e){}
+		catch(SyntaxError& e){
+			cout << e.scan->filename << ":" << e.scan->get().getX() << ":" << e.scan->get().getY() + e.scan->get().getText().size() << ' ' + e.str + e.symb << endl;
+		}
 	}
 }
 

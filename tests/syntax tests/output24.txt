@@ -1,0 +1,1 @@
+test24.c:1:4 error: expected unqualified-id before '' token

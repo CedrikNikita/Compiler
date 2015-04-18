@@ -1,0 +1,8 @@
+1	1	char	'a'	a
+1	5	char	'\''	'
+1	10	char	'\"'	"
+1	15	char	'\n'	
+
+test35.c:1:23 unknown escape sequence \ 
+	'\ 
+	 ^

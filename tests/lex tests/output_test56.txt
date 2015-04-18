@@ -1,0 +1,6 @@
+1	1	keyword	int	int
+1	5	identifier	a	a
+1	7	operation	=	=
+test56.c:1:15 unable to find numeric literal operator ‘operator""k
+	0x76ak
+	     ^

@@ -1,0 +1,7 @@
+1	56	identifier	j	j
+1	77	identifier	j	j
+1	88	int	555	555
+2	56	identifier	ghg	ghg
+3	52	identifier	df	df
+6	52	identifier	df	df
+7	47	int	0x123a	4666

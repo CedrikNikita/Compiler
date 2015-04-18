@@ -1,0 +1,1 @@
+test57.c:1:12 error: expression list treated as compound expression in initializer

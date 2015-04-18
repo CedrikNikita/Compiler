@@ -2,7 +2,8 @@
 #include <iostream>
 #include <stdlib.h>
 #include <string.h>
-#include "iostream"
+
+using namespace std;
 
 enum Condition{C_END, C_ERROR, C_BEGIN, C_INT, C_INT_EXP, C_INT_8, C_INT_16, 
 		   C_DOUBLE, C_DOUBLE_CHECK_EXP, C_DOUBLE_EXP, C_IDENTIFIER, 
@@ -16,11 +17,18 @@ enum Condition{C_END, C_ERROR, C_BEGIN, C_INT, C_INT_EXP, C_INT_8, C_INT_16,
 		   C_STRINGSPECIAL, C_STRINGEND, C_CHAR, C_CHARSPECIAL, C_CHARCHECK,
 		   C_CHAREND, C_FIELD, C_COMMA, C_SEMICOLON, C_TERNARYQ, C_TERNARYC,
 		   C_BRACEL, C_BRACER, C_SQUAREBRACEL, C_SQUAREBRACER, C_CURLYBRACEL,
-		   C_CURLYBRACER, C_SIZEOFS, C_SIZEOFI, C_SIZEOFZ, C_SIZEOFE, C_SIZEOFO,
-		   C_SIZEOFF}; 
+		   C_CURLYBRACER, C_SIZEOF, C_THROW}; 
+
+static string punctuator[] = {"+", "++", "+=", "-", "--", "-=", "->", "*", "*=", "/", "/=", "&", 
+			  "&&", "&=", "|", "||", "|=", ">", ">>", ">=", ">>=", "<", "<<", "<=", 
+			  "<<=", "=", "==", "!", "!=", "%", "%=", "^", "^=", "~", ".", ",",
+			  ";", "?", ":", "(", ")", "[", "]", "{", "}", "sizeof"};
+
+static string declaration[] = {"const", "int", "char", "double", "void", "typedef"};
+
+enum Declaration{D_const, D_int, D_char, D_double, D_void, D_typedef};
 
 enum State{Eof, Lexem};
-using namespace std;
 
 class Scanner{
 	public:
@@ -29,42 +37,37 @@ class Scanner{
 		class Lexem{
 			int x, y;
 			int state;
-			string type, text, strValue;
+			string text, strValue;
 			int intValue;
 			double doubValue;
 			char charValue;
 			public:
-				Lexem(): x(0), y(0), type(), text(), intValue(0), doubValue(0), charValue(), strValue(){};
+				Lexem(): x(0), y(0), text(), intValue(0), doubValue(0), charValue(), strValue(){};
 
-				Lexem(int _x, int _y, string _type, string _text, int _intValue, int _state): 
-				x(_x), y(_y), type(_type), text(_text), intValue(_intValue), state(_state){};
+				Lexem(int _x, int _y, string _text, int _intValue, int _state): 
+				x(_x), y(_y), text(_text), intValue(_intValue), state(_state){};
 
-				Lexem(int _x, int _y, string _type, string _text, string _strValue, int _state): 
-				x(_x), y(_y), type(_type), text(_text), strValue(_strValue), state(_state){};
+				Lexem(int _x, int _y, string _text, string _strValue, int _state): 
+				x(_x), y(_y), text(_text), strValue(_strValue), state(_state){};
 
-				Lexem(int _x, int _y, string _type, string _text, double _doubValue, int _state): 
-				x(_x), y(_y), type(_type), text(_text), doubValue(_doubValue), state(_state){};
+				Lexem(int _x, int _y, string _text, double _doubValue, int _state): 
+				x(_x), y(_y), text(_text), doubValue(_doubValue), state(_state){};
 
-				Lexem(int _x, int _y, string _type, string _text, char _charValue, int _state):	
-				x(_x), y(_y), type(_type), text(_text), charValue(_charValue), state(_state){};
-				Lexem operator != (char);
-				void print(){
-					if(state == C_INT || state == C_INT_EXP || state == C_INT_16 || state == C_INT_8) cout << x << '\t' << y << '\t' << type + '\t' << text + '\t' << intValue << endl;
-					else if(state == C_DOUBLE || state == C_DOUBLE_EXP || state == C_DOUBLE_CHECK_EXP) cout << x << '\t' << y << '\t' << type + '\t' << text + '\t' << doubValue << endl;
-					else if(state == C_CHAREND) cout << x << '\t' << y << '\t' << type + '\t' << text + '\t' << charValue << endl;
-					else cout << x << '\t' << y << '\t' << type + '\t' << text + '\t' << strValue << endl;
-				}
+				Lexem(int _x, int _y, string _text, char _charValue, int _state):	
+				x(_x), y(_y), text(_text), charValue(_charValue), state(_state){};
+				void print();
 				string getText(){return text;}
-				string getType(){return type;}
 				int getintValue(){return intValue;}
 				string getstrValue(){return strValue;}
 				double getdoubValue(){return doubValue;}
 				char getcharValue(){return charValue;}
+				Condition getEnum(){return static_cast<Condition>(state);}
 				int getX(){return x;}
 				int getY(){return y;}
 				bool operator == (Condition a){return a == state;}
 				bool operator != (Condition a){return a != state;}
 				bool operator != (State a){return a != state;}
+				bool operator == (Declaration a){return declaration[a] == text;}
 		};
 		Lexem next();
 		Lexem get(){return Lex;}
@@ -73,8 +76,10 @@ class Scanner{
 };
 
 class Error{
-	Scanner :: Lexem Lex;
-	string str;
 	public:
+		Scanner :: Lexem Lex;
+		char* filename;
+		string str;
+		int end;
 		Error(Scanner :: Lexem, int, char*, bool);
 };

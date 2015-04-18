@@ -1,0 +1,5 @@
+int, char, float, double, struct,
+	union, long, short, unsigned, auto, extern,
+		register, typedef, static, goto, return, sizeof,
+			break, continue, if, else, for, 
+				do, while, switch, case, default, entry

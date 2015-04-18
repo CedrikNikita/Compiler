@@ -1,0 +1,3 @@
+test68.c:1:4 unknown escape sequence \z
+	"\z
+	 ^

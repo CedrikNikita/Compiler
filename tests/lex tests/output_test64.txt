@@ -1,0 +1,6 @@
+1	1	keyword	int	int
+1	5	identifier	jkn	jkn
+1	9	operation	=	=
+test64.c:1:17 unable to find numeric literal operator ‘operator""k
+	1.5e6k
+	     ^

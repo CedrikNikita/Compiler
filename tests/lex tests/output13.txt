@@ -1,0 +1,3 @@
+test13.c:1:11 integer constant is too large for its type
+	123293821
+	         ^

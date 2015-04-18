@@ -1,0 +1,2 @@
+1	1	keyword	int	int
+1	5	keyword	char	char

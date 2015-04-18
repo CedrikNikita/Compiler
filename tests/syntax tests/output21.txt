@@ -1,0 +1,1 @@
+test21.c:1:7 error: expected unqualified-id before '' token

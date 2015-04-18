@@ -5,21 +5,6 @@ using namespace std;
 
 //#define debug
 
-static string Set_cap(int pos){
-	string str;
-	for(int i = 0; i < pos; i++)
-		str += ' ';
-	str += '^';
-	return str;
-}
-
-static void Error_message(Scanner :: Lexem Lex, string mes, char* filename, int a){ 
-	int last = Lex.getText().size();
-	cout << filename << ":" << Lex.getX() << ":" << Lex.getY() + last << ' ' + mes << (Lex.getText()).substr(last - a, a) << endl 
-	<< '\t' + Lex.getText() << endl
-	<< '\t' + Set_cap(last - a) << endl;
-}
-
 int x = 1;
 int temp_y = 0;
 char prev_symbol = 0;
@@ -34,7 +19,7 @@ Scanner :: Lexem Scanner :: next(){
 	int prev_state, state = C_BEGIN;
 	int lex_size = 0;
 	int value_size = 0;
-	string text, type, value;
+	string text, value;
 	while(state != C_END){
 		if(prev_symbol == 0){
 			c = getchar();
@@ -46,7 +31,7 @@ Scanner :: Lexem Scanner :: next(){
 
 		}
 		if(c == -1){
-			Lexem a(x, temp_y - lex_size + 1, "", "", "", 0);
+			Lexem a(x, temp_y - lex_size + 1, "", "", 0);
 			Lex = a;
 			return Lex;
 		}
@@ -58,13 +43,13 @@ Scanner :: Lexem Scanner :: next(){
 		prev_state = state;
 		state = table[state][c < -1 ? 128 : c];
 #ifdef debug
-		cout << "prev_state " << prev_state << " state " << state << " c " << c << endl;
+		cout << "prev_state " << prev_state << " state " << state << " c -- " << c << endl;
 #endif
 		if((prev_state == C_INT || state == C_INT) && (lex_size == 9))   
-			throw Error(Lexem(x, temp_y - lex_size + 1, types.find(prev_state)->second, text, text, prev_state), 
+			throw Error(Lexem(x, temp_y - lex_size + 1, text, text, prev_state), 
 						prev_state, filename, 1);
 		if(state == C_ERROR)
-			throw Error(Lexem(x, temp_y - lex_size, types.find(prev_state)->second, text + c, text + c, prev_state),
+			throw Error(Lexem(x, temp_y - lex_size, text + c, text + c, prev_state),
 						prev_state, filename, 0);
 		if(prev_state == C_STRINGSPECIAL || prev_state == C_CHARSPECIAL){
 			text += c;
@@ -90,8 +75,6 @@ Scanner :: Lexem Scanner :: next(){
 	prev_symbol = c;
 	text = text.substr(0, lex_size - 1);
 	value = value.substr(0, lex_size - 1);
-	type = types.find(prev_state)->second;
-	if((prev_state == C_IDENTIFIER) && (keyword.find(text) != keyword.end())) type = "keyword";
 	int base = 0;
 	switch(prev_state){
 		case C_INT: base = 10; break;
@@ -100,51 +83,68 @@ Scanner :: Lexem Scanner :: next(){
 	}
 	Lexem a;
 	if(prev_state == C_INT_EXP){
-		int value =  static_cast< int >(stod(text));
-		Lexem a(x, temp_y - lex_size + 1, type, text, value, prev_state);
+		int value =  static_cast<int>(stod(text));
+		Lexem a(x, temp_y - lex_size + 1, text, value, prev_state);
 		Lex = a;
 	}
 	if(base){
 		char *endp;
 		int value = strtol(text.c_str(), &endp, base);
-		Lexem a(x, temp_y - lex_size + 1, type, text, value, prev_state);
+		Lexem a(x, temp_y - lex_size + 1, text, value, prev_state);
 		Lex = a;
 	}
 	else if(prev_state == C_DOUBLE || prev_state == C_DOUBLE_EXP || prev_state == C_DOUBLE_CHECK_EXP){
 		double value = atof(text.c_str());
-		Lexem a(x, temp_y - lex_size + 1, type, text, value, prev_state);
+		Lexem a(x, temp_y - lex_size + 1, text, value, prev_state);
 		Lex = a;
 	}
 	else if(prev_state == C_CHAREND){
 		char cvalue = value.substr(1, lex_size - 3)[0];
-		Lexem a(x, temp_y - lex_size + 1, type, text, cvalue, prev_state);
+		Lexem a(x, temp_y - lex_size + 1, text, cvalue, prev_state);
 		Lex = a;
 	}
 	else if(prev_state == C_STRINGEND){
 		value = value.substr(1, value_size - 3);
-		Lexem a(x, temp_y - lex_size + 1, type, text, value, prev_state);
+		Lexem a(x, temp_y - lex_size + 1, text, value, prev_state);
 		Lex = a;
 	}
 	else{
-		Lexem a(x, temp_y - lex_size + 1, type, text, text, prev_state);
+		if(text == "sizeof") prev_state = C_SIZEOF;
+		Lexem a(x, temp_y - lex_size + 1, text, text, prev_state);
 		Lex = a;
 	}
 	lex_size = 0;
 	return Lex;
+}	
+
+void Scanner :: Lexem :: print(){
+	if(state == C_INT || state == C_INT_EXP || state == C_INT_16 || state == C_INT_8) cout << x << '\t' << y << '\t' << "int"  <<  '\t' << text + '\t' << intValue << endl;
+	else if(state == C_DOUBLE || state == C_DOUBLE_EXP || state == C_DOUBLE_CHECK_EXP) cout << x << '\t' << y << '\t' << "double"  <<  '\t' << text + '\t' << doubValue << endl;
+	else if(state == C_CHAREND) cout << x << '\t' << y << '\t' << "char"  <<  '\t' << text + '\t' << charValue << endl;
+	else if(state == C_STRINGEND) cout << x << '\t' << y << '\t' << "char*"  <<  '\t' << text + '\t' << strValue << endl;
+	else{
+		if((state >= C_PLUS) && (state <= C_NOTBIN) || state == C_SIZEOF) cout << x << '\t' << y << '\t' << "operation"  <<  '\t' << text + '\t' << strValue << endl;
+		else if(state >= C_FIELD) cout << x << '\t' << y << '\t' << "separator"  <<  '\t' << text + '\t' << strValue << endl;
+		else if(keyword.find(text) != keyword.end()) cout << x << '\t' << y << '\t' << "keyword"  <<  '\t' << text + '\t' << strValue << endl;
+		else cout << x << '\t' << y << '\t' << "identifier" << '\t' << text + '\t' << strValue << endl;
+	}
 }
 
-Error :: Error(Scanner :: Lexem Lex, int prev_state, char* filename, bool a){ 		
+Error :: Error(Scanner :: Lexem _Lex, int prev_state, char* _filename, bool a): Lex(_Lex), filename(_filename), end(1){
 	if(prev_state == C_DOUBLE || prev_state == C_DOUBLE_EXP || prev_state == C_DOUBLE_CHECK_EXP
 	|| prev_state == C_INT || prev_state == C_INT_8 || prev_state == C_INT_16){
-		if(a)
-			Error_message(Lex, "integer constant is too large for its type", filename, 0);
-		else
-			Error_message(Lex, "unable to find numeric literal operator ‘operator\"\"", filename, 1);
+		if(a){
+			str = "integer constant is too large for its type";
+			end = 0;
+		}
+		else str = "unable to find numeric literal operator ‘operator\"\"";
 	}
 	else if(prev_state == C_CHAREND || prev_state == C_CHARCHECK)
-		Error_message(Lex, "missing terminating ' character", filename, 1);
+		str = "missing terminating ' character";
 	else if(prev_state == C_STRING)
-		Error_message(Lex, "missing terminating \" character", filename, 1);		
-	else if(prev_state == C_STRINGSPECIAL)
-		Error_message(Lex, "unknown escape sequence ", filename, 2);
+		str = "missing terminating \" character";		
+	else if(prev_state == C_STRINGSPECIAL || prev_state == C_CHARSPECIAL){
+		str = "unknown escape sequence ";
+		end = 2;
+	}
 }

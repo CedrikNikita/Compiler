@@ -1,0 +1,39 @@
+identifier	1	1	kkkdf	kkkdf
+char*	1	7	"z"	z
+identifier	1	12	df	df
+identifier	1	15	dfjks	dfjks
+identifier	1	21	fsdkf	fsdkf
+identifier	1	27	jsi	jsi
+int	1	32	555	555
+int	1	36	5	5
+int	1	39	0764	500
+identifier	1	44	hdjfh	hdjfh
+identifier	1	50	kkkkkkkk_	kkkkkkkk_
+operation	2	1	/	/
+operation	2	2	*	*
+identifier	2	3	sdksdjsldjsdjskdsdjlsdksjdljsl	sdksdjsldjsdjskdsdjlsdksjdljsl
+operation	2	33	*	*
+operation	2	34	/	/
+int	2	36	0x16a	362
+operation	2	42	/	/
+char*	2	44	""	
+char	2	47	''	
+identifier	3	1	h	h
+int	3	3	88888888	88888888
+char*	3	12	"yeah \ncommon"	yeah 
+common
+char*	3	28	"\""	"
+char*	3	33	"it smells like yoyr\' d"	it smells like yoyr' d
+identifier	4	1	_abcd	_abcd
+operation	4	7	->	->
+operation	4	10	!=	!=
+operation	4	13	&	&
+identifier	4	14	g	g
+operation	4	16	&&	&&
+operation	4	19	||	||
+separator	4	23	.	.
+separator	4	24	.	.
+separator	4	25	.	.
+test1.c:4:36 integer message is to large for its type 9999999999
+	999999999
+	        ^

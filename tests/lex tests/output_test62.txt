@@ -1,0 +1,6 @@
+1	1	keyword	int	int
+1	5	identifier	vc	vc
+1	8	operation	=	=
+test62.c:1:16 unable to find numeric literal operator ‘operator""k
+	12.67k
+	     ^

@@ -1,0 +1,3 @@
+test69.c:1:4 unknown escape sequence \q
+	"\q
+	 ^

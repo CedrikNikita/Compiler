@@ -1,0 +1,5 @@
+test66.c:1:3 missing terminating " character
+
+	"
+
+	 ^

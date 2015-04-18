@@ -1,0 +1,3 @@
+1	1	keyword	int	int
+1	5	identifier	jksd	jksd
+1	10	operation	=	=

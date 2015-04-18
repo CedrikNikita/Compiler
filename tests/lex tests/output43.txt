@@ -1,0 +1,7 @@
+1	1	operation	->	->
+1	3	identifier	asdasd	asdasd
+1	9	operation	++	++
+1	11	operation	++	++
+1	13	operation	++	++
+1	15	operation	+	+
+1	16	identifier	mmndsadasdn	mmndsadasdn
