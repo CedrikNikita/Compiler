@@ -116,7 +116,6 @@ void ConvNode :: print(int i, TreeState state){
 }
 
 
-
 void ExprStmt :: print(int i, TreeState state){
 	stmt->print(i + 2, state);
 }
@@ -180,18 +179,18 @@ BlockStmt::BlockStmt(ListStmt* _body, SymTable* _sym): body(_body){
 	memcpy(sym, _sym, sizeof(SymTable));
 }
 
-/*BlockStmt :: ~BlockStmt(){
+BlockStmt :: ~BlockStmt(){
 	if(sym != NULL) delete sym; 
 	while(body != NULL){
 		auto temp = body->getNext();
-		delete body; body = temp;
+		delete body;
+		body = temp;
 	}
-}*/
+}
 
-/*ListStmt :: ~ListStmt(){
-	val->print(0, T_None);
+ListStmt :: ~ListStmt(){
 	delete val;
-}*/
+}
 
 int VarNode :: islvalue(){				//TODO : беда
 	if(var->isConst()) return 2;
@@ -326,12 +325,13 @@ void VarNode::generate(AsmCode& a){
 }
 
 void BinOpNode::generate(AsmCode& a){
-	if(op == C_ASSIGN) left->generateLvalue(a);
+	right->generate(a);
+	if(op == C_ASSIGN || op == C_PLUSEQUAL || op == C_MINUSEQUAL || op == C_ASTERISKEQUAL || op == C_DIVEQUAL)
+		left->generateLvalue(a);
 	else
 		left->generate(a);
-	right->generate(a);
-	a.addCmd1(c_pop, ebx);
 	a.addCmd1(c_pop, eax);
+	a.addCmd1(c_pop, ebx);
 	switch(op){
 		case C_PLUS: 
 			a.addCmd2(c_add, eax, ebx); 
@@ -343,10 +343,6 @@ void BinOpNode::generate(AsmCode& a){
 			break;
 		case C_MINUS: 
 			a.addCmd2(c_sub, eax, ebx);
-			a.addCmd1(c_push, eax);
-			break;
-		case C_ASSIGN: 
-			a.addCmd2(c_mov, eax_sq, ebx);
 			a.addCmd1(c_push, eax);
 			break;
 		case C_GREATER:
@@ -392,13 +388,32 @@ void BinOpNode::generate(AsmCode& a){
 		case C_OR:
 			a.addCmd2(c_or, eax, ebx);
 			a.addCmd1(c_push, eax);
+		case C_ASSIGN:
+			a.addCmd2(c_mov, eax_sq, ebx);
+			a.addCmd1(c_push, eax_sq);
+			break;
+		case C_PLUSEQUAL:
+			a.addCmd2(c_add, eax_sq, ebx);
+			a.addCmd1(c_push, eax_sq);
+			break;
+		case C_MINUSEQUAL:
+			a.addCmd2(c_sub, eax_sq, ebx);
+			a.addCmd1(c_push, eax_sq);
+			break;
+		case C_ASTERISKEQUAL:
+			a.addCmd2(c_imul, eax_sq, ebx);
+			a.addCmd1(c_push, eax_sq);
+			break;
 		default:
-			SyntaxError("error: can not generate, not implemented yet");
+			throw SyntaxError("error: can not generate, not implemented yet");
 	}
 }
 
 void UnOpNode::generate(AsmCode& a){
-	res->generate(a);
+	if(op == C_INCREMENT || op == C_DECREMENT)
+		res->generateLvalue(a);
+	else
+		res->generate(a);
 	a.addCmd1(c_pop, eax);
 	switch(op){
 		case C_NOTBIN:
@@ -412,6 +427,14 @@ void UnOpNode::generate(AsmCode& a){
 		case C_PLUS:
 			a.addCmd1(c_push, eax);
 			break;
+		case C_INCREMENT:
+			if(prefix) a.addCmd1(c_push, eax_sq);
+			a.addCmd1(c_inc, eax_sq);
+			if(!prefix) a.addCmd1(c_push, eax_sq);
+		case C_DECREMENT:
+			if(prefix) a.addCmd1(c_push, eax_sq);
+			a.addCmd1(c_dec, eax_sq);
+			if(!prefix) a.addCmd1(c_push, eax_sq);
 		default:
 			SyntaxError("error: can not generate, not implemented yet");
 	}
@@ -422,9 +445,11 @@ void ConstCharNode::generate(AsmCode& a){
 }
 void ConstDoubleNode::generate(AsmCode& a){
 }
+
 void ConstIntNode::generate(AsmCode& a){
 	a.addCmdConst(c_push_dword_ptr, value);
 }
+
 void ArrayNode::generate(AsmCode& a){
 }
 void TernOpNode::generate(AsmCode& a){

@@ -1,6 +1,8 @@
 typedef int pint;
+
 pint a;
+
 int main(){
-	a = 3 > 1;
+	a += a = 3;
 	printf("%d", a);
 }

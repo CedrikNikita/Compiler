@@ -26,7 +26,7 @@ class Symbol{
 		virtual int getSize() = 0;
 
 		virtual void generate(AsmCode&) = 0;
-//		virtual ~Symbol(){}
+		virtual ~Symbol(){}
 };
 
 class SymArray;
@@ -113,7 +113,7 @@ class SymPointer: public SymType{
 		virtual TypeConvertion meet(SymVoid*, Condition);
 
 		SymPointer(string _name,  Symbol* _type, bool _is_const): name(_name), type(_type), is_const(_is_const){};
-//		~SymPointer(){delete type;}
+		~SymPointer(){}
 		virtual void print(int space){setSpace(space); printf("type %s\n", name.c_str());}
 		virtual string getName(){return name;}
 		virtual string getType(){return name;}
@@ -280,7 +280,7 @@ class SymVar: public Symbol{
 		virtual TypeConvertion meet(SymType*, Condition);
 		SymVar(Symbol* _type, string _name): type(_type), name(_name), init(NULL), is_const(0){}
 		SymVar(Symbol* _type, string _name, bool _is_const): type(_type), name(_name), init(NULL), is_const(_is_const){}
-//		~SymVar();
+		~SymVar();
 
 		string getType(){return type->getType();}
 		SymType* getSymType(){return (SymType*)type;}
@@ -302,7 +302,7 @@ class List{
 	public:
 		Symbol *var;
 		List(Symbol *_var,  List *_next): var(_var), next(_next){}
-		//~List(){delete var;}
+		~List(){delete var;}
 		void setNext(List *_next){if(_next != NULL) next = _next;}
 		void setPrev(List *_prev){if(_prev != NULL) prev = _prev;}
 		List* getNext(){return next;}
@@ -315,7 +315,7 @@ class SymTable{
 		map<string, Symbol*> Table;
 		void addSymbol(Symbol*);
 		SymTable(): list(){}
-//		~SymTable(){/*for(int i = 0; list != NULL; 1){auto temp = list->getNext(); delete list; list = temp;}*/}
+		~SymTable(){/*for(int i = 0; list != NULL; 1){auto temp = list->getNext(); delete list; list = temp;}*/}
 		void print(int);
 
 		virtual void generate(AsmCode&);
@@ -329,7 +329,7 @@ class SymFunction: public Symbol{						//TODO : наследование
 	List* arg;
 	public:
 		SymFunction(string _name, Symbol* _type, List* _arg, StmtNode* _body, bool _b_const): type(_type), name(_name), arg(_arg), body(_body), b_const(_b_const){}
-//		~SymFunction();
+		~SymFunction();
 		void setBody(StmtNode* _body){body = _body;}
 		List* getArgs(){ return arg; }
 

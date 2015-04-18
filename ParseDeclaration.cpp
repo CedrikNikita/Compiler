@@ -103,7 +103,8 @@ Symbol* Parser :: parseFunction(Symbol* type_symbol, string name, bool is_const)
 				throw SyntaxError("error: conflicting types for \"" + name + "\"");
 			prev_args = prev_args->getNext();
 		}
-		arg = addListElem(arg, (scan->get() == C_IDENTIFIER) ? parseSimpleDeclaration(cont) : cont.type);
+		tok = scan->get();
+		arg = addListElem(arg, (tok == C_IDENTIFIER || tok == C_ASTERISK || tok == C_BRACEL) ? parseSimpleDeclaration(cont) : cont.type);
 		if (scan->get() == C_COMMA && scan->next() != C_IDENTIFIER)
 			throw SyntaxError("error: expected declaration specifiers");
 		tok = scan->get();

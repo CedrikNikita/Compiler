@@ -64,6 +64,29 @@ void AsmCode :: print(){
 	printf("ret\nmain endp\nend\n");
 }
 
+Operands AsmCmd1 :: getOper(){
+	return oper->getOper();
+}
+
+void AsmCode :: optimize(){
+	auto temp_first = list;
+	auto temp_second = list->getNext();
+	while(temp_first != NULL && temp_second != NULL){
+		if(temp_first->getVal()->operator==(c_push) && temp_second->getVal()->operator==(c_pop)
+			&& temp_first->getVal()->getOper() == temp_second->getVal()->getOper()){
+			auto first = temp_first->getPrev();
+			auto second = temp_second->getNext();
+			//delete temp_first->getNext();
+			//delete second->getPrev();
+			first->setNext(second);
+			second->setPrev(first);
+		}
+		temp_first = temp_first->getNext();
+		temp_second = temp_second->getNext();
+
+	}
+}
+
 void ListCmd :: print(){
 	val->print();
 }

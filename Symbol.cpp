@@ -402,16 +402,15 @@ void  SymFunction :: setBody(StmtNode* _body){
 	body = (StmtNode*)malloc(sizeof(BlockStmt)); 
 	memcpy(body, _body, sizeof(BlockStmt));
 }
-
+*/
 SymFunction :: ~SymFunction(){
-	if(body != NULL) delete body; 
-	if(arg != NULL) delete arg; 
-	delete type;
+	if(body != NULL) delete body;
+	if(arg != NULL) delete arg;
 }
+
 SymVar :: ~SymVar(){
 	if(init != NULL) delete init; 
-	delete type;
-}*/
+}
 
 void SymVar :: generate(AsmCode& a){
 	if(type->getType() == "int")

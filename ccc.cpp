@@ -93,7 +93,7 @@ void parse(char* filename){
 	}
 }
 
-void genAssemble(char* filename, char* outfile){
+void genAssemble(char* filename, char* outfile, bool optimization){
 	try{	
 		Scanner Sc(filename);
 		try{ 
@@ -107,6 +107,7 @@ void genAssemble(char* filename, char* outfile){
 				Parser Pa(&Sc);
 				CodeGen CG(outfile);
 				Pa.generate(CG);
+				if(optimization) CG.optimize();
 				CG.print();
 			}
 			catch(SyntaxError& e){
@@ -138,7 +139,8 @@ int main(int argc, char *argv[]){
 		if(strcmp(argv[1], "-l") != 0 && strcmp(argv[1], "-s") != 0 && strcmp(argv[1], "-S") != 0 ) mes_option(argv[1]);
 		else if(strcmp(argv[3], "-out") != 0) mes_option(argv[3]);
 		else if(strcmp(argv[3], "-out") == 0){
-			if(strcmp(argv[1], "-S") == 0) genAssemble(argv[2], argv[4]);
+			if(strcmp(argv[1], "-S") == 0) genAssemble(argv[2], argv[4], false);
+			else if(strcmp(argv[1], "-S") == 0) genAssemble(argv[2], argv[4], true);
 			else{
 				freopen(argv[4], "w", stdout);
 				if(strcmp(argv[1], "-l") == 0) scan(argv[2]);
@@ -147,6 +149,10 @@ int main(int argc, char *argv[]){
 			}
 		}
 		break;
+	case 6:
+		genAssemble(argv[3], argv[5], true);
+		break;
+
 	}
 	return 0;
 }

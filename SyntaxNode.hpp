@@ -21,7 +21,7 @@ class ListStmt{
 	StmtNode* val;
 public:
 	ListStmt(StmtNode* _val, ListStmt* _next) : val(_val), next(_next){}
-//	~ListStmt();
+	~ListStmt();
 	void setNext(ListStmt *_next){ if (_next != NULL) next = _next; }
 	void setPrev(ListStmt *_prev){ if (_prev != NULL) prev = _prev; }
 	void print(int space, TreeState state);
@@ -36,7 +36,7 @@ class SyntaxNode{
 
 		virtual void generate(AsmCode&) = 0;
 		virtual void generateLvalue(AsmCode&) = 0;
-//		virtual ~SyntaxNode(){}
+		virtual ~SyntaxNode(){}
 };
 
 class ExprNode: public SyntaxNode{
@@ -48,7 +48,7 @@ class ExprNode: public SyntaxNode{
 
 		virtual void generate(AsmCode&) = 0;
 		virtual void generateLvalue(AsmCode&) = 0;
-////		virtual ~ExprNode(){}
+		virtual ~ExprNode(){}
 };
 
 class VarNode : public ExprNode{
@@ -70,7 +70,7 @@ class ConstIntNode : public ExprNode{
 	Scanner :: Lexem value;
 	public:
 		ConstIntNode(Scanner :: Lexem);
-////		~ConstIntNode(){}
+		~ConstIntNode(){}
 		virtual void print(int, TreeState);
 		virtual int islvalue(){return 0;}
 		virtual SymType* getType(){return type;}
@@ -86,7 +86,7 @@ class ConstDoubleNode : public ExprNode{
 	Scanner :: Lexem value;
 	public:
 		ConstDoubleNode(Scanner :: Lexem);
-//		~ConstDoubleNode(){}
+		~ConstDoubleNode(){}
 		virtual void print(int, TreeState);
 		virtual int islvalue(){return 0;}
 		virtual SymType* getType(){return type;}
@@ -102,7 +102,7 @@ class ConstCharNode : public ExprNode{
 	Scanner :: Lexem value;
 	public:
 		ConstCharNode(Scanner :: Lexem);
-//		~ConstCharNode(){}
+		~ConstCharNode(){}
 		virtual void print(int, TreeState);
 		virtual int islvalue(){return 0;}
 		virtual SymType* getType(){return type;}
@@ -119,7 +119,7 @@ class BinOpNode : public ExprNode{
 	ExprNode *left, *right;
 	public:
 		BinOpNode(Condition, ExprNode*, ExprNode*);
-//		~BinOpNode(){delete left; delete right;}
+		~BinOpNode(){delete left; delete right;}
 		virtual void print(int, TreeState);
 		virtual int islvalue(){return 0;}
 		virtual SymType* getType(){return type;}
@@ -137,7 +137,7 @@ class UnOpNode : public ExprNode{
 	public:
 		UnOpNode(Condition _op, ExprNode* _res): op(_op), res(_res), prefix(0){}
 		UnOpNode(ExprNode* _res, Condition _op): op(_op), res(_res), prefix(1){}
-//		~UnOpNode(){delete res;}
+		~UnOpNode(){delete res;}
 		virtual void print(int, TreeState);
 		virtual int islvalue(){return 0;}
 		virtual SymType* getType(){return type;}
@@ -154,7 +154,7 @@ class ArrayNode : public ExprNode{
 	ListStmt* list;
 	public:
 		ArrayNode(ExprNode* _name, ListStmt* _list): name(_name), list(_list){}
-//		~ArrayNode(){delete name; for(int i = 0; list != NULL; 1){auto temp_list = list->getNext(); delete list; list = temp_list;}}
+		~ArrayNode(){delete name; for(int i = 0; list != NULL; 1){auto temp_list = list->getNext(); delete list; list = temp_list;}}
 		virtual void print(int, TreeState);
 		virtual int islvalue(){return 1;}
 		virtual SymType* getType(){return type;}
@@ -170,7 +170,7 @@ class TernOpNode: public ExprNode{
 	public:
 		TernOpNode(ExprNode* _condition, ExprNode* _expif, ExprNode* _exprelse):
 		condition(_condition), expif(_expif), exprelse(_exprelse){}
-//		~TernOpNode(){delete condition; delete expif; delete exprelse;}
+		~TernOpNode(){delete condition; delete expif; delete exprelse;}
 		virtual void print(int, TreeState);
 		virtual int islvalue(){return 0;}
 		virtual SymType* getType(){return type;}
@@ -186,7 +186,7 @@ class FuncVarNode: public ExprNode{
 	ListStmt* list;
 	public:
 		FuncVarNode(ExprNode* _name, ListStmt* _list): name(_name), list(_list){}
-//		~FuncVarNode(){delete name; for(int i = 0; list != NULL; 1){auto temp_list = list->getNext(); delete list; list = temp_list;}}
+		~FuncVarNode(){delete name; for(int i = 0; list != NULL; 1){auto temp_list = list->getNext(); delete list; list = temp_list;}}
 		virtual void print(int, TreeState);
 		virtual int islvalue(){return 0;}
 		virtual SymType* getType(){return type;}
@@ -209,7 +209,7 @@ class ConvNode: public ExprNode{
 	SymType* type;
 	public:
 		ConvNode(ExprNode* _right, SymType* _type): right(_right), type(_type){}
-//		~ConvNode(){delete right;}
+		~ConvNode(){delete right;}
 		virtual void print(int, TreeState);
 		virtual int islvalue(){return 1;}
 		virtual SymType* getType(){return type;}
@@ -226,7 +226,7 @@ class StmtNode: public SyntaxNode{
 		virtual void generate(AsmCode&) = 0;
 		virtual void generateLvalue(AsmCode&) = 0;
 
-//		virtual ~StmtNode(){}
+		virtual ~StmtNode(){}
 };
 
 class PrintfStmt: public StmtNode{
@@ -234,6 +234,7 @@ class PrintfStmt: public StmtNode{
 	string format, fmt;
 	public:
 		PrintfStmt(ListStmt* _list,  string _format, string _fmt): list(_list), format(_format), fmt(_fmt){}
+		virtual ~PrintfStmt(){for(int i = 0; list != NULL; 1){auto temp_list = list->getNext(); delete list; list = temp_list;}}
 		virtual void print(int, TreeState){}
 		virtual void generate(AsmCode& a);
 		virtual void generateLvalue(AsmCode&){}
@@ -248,7 +249,7 @@ class ExprStmt: public StmtNode{
 		virtual void generate(AsmCode&);
 		virtual void generateLvalue(AsmCode&);
 
-//		virtual ~ExprStmt(){}
+		virtual ~ExprStmt(){delete stmt;}
 };
 
 class EmptyStmt: public StmtNode{
@@ -265,7 +266,7 @@ class BlockStmt: public StmtNode{
 	ListStmt* body; 
 	public:
 		BlockStmt(ListStmt* _body, SymTable* _sym);
-//		~BlockStmt();
+		~BlockStmt();
 		virtual void print(int, TreeState);
 
 		virtual void generate(AsmCode&);
@@ -277,7 +278,7 @@ class WhileStmt: public StmtNode{
 	StmtNode* body;
 	public:
 		WhileStmt(ExprNode* _cond, StmtNode* _body): cond(_cond), body(_body){}
-//		~WhileStmt(){delete cond; delete body;}
+		~WhileStmt(){delete cond; delete body;}
 		virtual void print(int space, TreeState state);
 
 		virtual void generate(AsmCode&);
@@ -289,7 +290,7 @@ class DoWhileStmt: public StmtNode{
 	StmtNode* body;
 	public:
 		DoWhileStmt(ExprNode* _cond, StmtNode* _body): cond(_cond), body(_body){}
-//		~DoWhileStmt(){delete cond; delete body;}
+		~DoWhileStmt(){delete cond; delete body;}
 		virtual void print(int, TreeState);
 
 		virtual void generate(AsmCode&);
@@ -302,7 +303,7 @@ class IfStmt: public StmtNode{
 	public:
 		IfStmt(ExprNode* _cond, StmtNode* _ifbody, StmtNode* _elsebody): cond(_cond), ifbody(_ifbody), elsebody(_elsebody){}
 		IfStmt(ExprNode* _cond, StmtNode* _ifbody): cond(_cond), ifbody(_ifbody), elsebody(new EmptyStmt()){}
-//		~IfStmt(){delete cond; delete ifbody; if(elsebody != NULL) delete elsebody;}
+		~IfStmt(){delete cond; delete ifbody; if(elsebody != NULL) delete elsebody;}
 		virtual void print(int, TreeState);
 
 		virtual void generate(AsmCode&);
@@ -314,7 +315,7 @@ class ForStmt: public StmtNode{
 	StmtNode* body;
 	public:
 		ForStmt(ExprNode* _from, ExprNode* _cond, ExprNode* _operation, StmtNode* _body): from(_from), cond(_cond), operation(_operation), body(_body){}
-//		~ForStmt(){delete from; delete cond; if(operation != NULL) delete operation; delete body;}
+		~ForStmt(){delete from; delete cond; if(operation != NULL) delete operation; delete body;}
 		virtual void print(int, TreeState);
 
 		virtual void generate(AsmCode&);
