@@ -1,0 +1,1 @@
+throw a, b, sizeof(a <<1 + 3 == b + --c)
